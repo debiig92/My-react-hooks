@@ -1,30 +1,29 @@
-import { useState } from "react"
+import { useState } from 'react';
 
+export const useCounter = (initialValue = 10) => {
+  const [counter, setCounter] = useState(initialValue);
 
-export const useCounter = ( initialValue = 10 ) => {
+  const increment = (value = 1) => {
+    setCounter(counter + value);
+  };
 
-    const [ counter, setCounter ] = useState( initialValue )
+  const decrement = (value = 1) => {
+    // if ( counter === 0 ) return;
 
-    const increment = ( value = 1 ) => {
-        setCounter( counter + value );
-    }
+    setCounter(counter - value);
+  };
 
-    const decrement = ( value = 1 ) => {
-        // if ( counter === 0 ) return;
+  const reset = () => {
+    setCounter(initialValue);
+  };
 
-        setCounter( counter - value );
-    }
+  return {
+    counter,
+    increment,
+    decrement,
+    reset,
+  };
+};
 
-    const reset = () => {
-        setCounter( initialValue );
-    }
-
-    return {
-        counter,
-        increment,
-        decrement,
-        reset,
-    }
-
-}
-
+// tener cuidado porque los eventos se parasan implitamente como argumento si una funcion tiene valor por defecto
+// y no se le pasa alguna valor por defecto este parasa el valor del evento
